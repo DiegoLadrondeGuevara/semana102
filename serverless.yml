@@ -1,3 +1,4 @@
+org: diegoladrondeguevara
 service: api-alumnos
 
 package:
@@ -14,7 +15,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   timeout: 30
   iam:
-    role: arn:aws:iam::${aws:accountId}:role/LabRole
+    role: arn:aws:iam::904208419583:role/LabRole
   environment:
     ALUMNOS_TABLE: ${env:ALUMNOS_TABLE, 't_alumnos'}
 
