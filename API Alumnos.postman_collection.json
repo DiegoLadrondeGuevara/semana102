@@ -1,18 +1,35 @@
 {
   "info": {
-    "name": "API Alumnos - Taller 2",
-    "description": "Importa la colección y cambia baseUrl por la URL base que devuelve serverless deploy (incluye /dev). Las rutas del ejemplo no requieren token.",
+    "name": "API Alumnos - Taller 2 (dev)",
+    "description": "URL del despliegue dev ya configurada. Ejecuta la colección en orden: Crear, Listar, Buscar, Modificar y Eliminar. Crear genera un alumno_id de prueba único. No requiere token.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "auth": { "type": "noauth" },
   "variable": [
-    { "key": "baseUrl", "value": "https://REEMPLAZAR.execute-api.us-east-1.amazonaws.com/dev" },
+    { "key": "baseUrl", "value": "https://zv2cnq3ai5.execute-api.us-east-1.amazonaws.com/dev" },
     { "key": "tenant_id", "value": "UTEC" },
-    { "key": "alumno_id", "value": "2021077990" }
+    { "key": "alumno_id", "value": "TEST-PENDIENTE" }
   ],
   "item": [
     {
       "name": "1. CrearAlumno",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": { "type": "text/javascript", "exec": ["pm.collectionVariables.set('alumno_id', 'TEST-' + Date.now());"] }
+        },
+        {
+          "listen": "test",
+          "script": { "type": "text/javascript", "exec": [
+            "pm.test('Crear devuelve HTTP 201', () => pm.response.to.have.status(201));",
+            "const data = pm.response.json();",
+            "pm.test('Alumno creado con el ID de prueba', () => {",
+            "  pm.expect(data.alumno.tenant_id).to.eql(pm.collectionVariables.get('tenant_id'));",
+            "  pm.expect(data.alumno.alumno_id).to.eql(pm.collectionVariables.get('alumno_id'));",
+            "});"
+          ] }
+        }
+      ],
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -26,6 +43,15 @@
     },
     {
       "name": "2. ListarAlumnos",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Listar devuelve HTTP 200', () => pm.response.to.have.status(200));",
+        "const data = pm.response.json();",
+        "pm.test('Lista y cantidad válidas', () => {",
+        "  pm.expect(data.tenant_id).to.eql(pm.collectionVariables.get('tenant_id'));",
+        "  pm.expect(data.alumnos).to.be.an('array');",
+        "  pm.expect(data.num_reg).to.eql(data.alumnos.length);",
+        "});"
+      ] } }],
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -35,6 +61,13 @@
     },
     {
       "name": "3. BuscarAlumno",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Buscar devuelve HTTP 200', () => pm.response.to.have.status(200));",
+        "const data = pm.response.json();",
+        "pm.test('Se encontró el alumno creado', () => {",
+        "  pm.expect(data.alumno.alumno_id).to.eql(pm.collectionVariables.get('alumno_id'));",
+        "});"
+      ] } }],
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -44,6 +77,14 @@
     },
     {
       "name": "4. ModificarAlumno",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Modificar devuelve HTTP 200', () => pm.response.to.have.status(200));",
+        "const data = pm.response.json();",
+        "pm.test('El celular quedó actualizado', () => {",
+        "  pm.expect(data.alumno.alumno_id).to.eql(pm.collectionVariables.get('alumno_id'));",
+        "  pm.expect(data.alumno.alumno_datos.celular).to.eql('999000111');",
+        "});"
+      ] } }],
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -57,6 +98,14 @@
     },
     {
       "name": "5. EliminarAlumno",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Eliminar devuelve HTTP 200', () => pm.response.to.have.status(200));",
+        "const data = pm.response.json();",
+        "pm.test('Se eliminó el alumno de prueba', () => {",
+        "  pm.expect(data.alumno_id).to.eql(pm.collectionVariables.get('alumno_id'));",
+        "  pm.expect(data.mensaje).to.eql('Alumno eliminado');",
+        "});"
+      ] } }],
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],

@@ -21,7 +21,7 @@ La configuración usa `us-east-1` y stage `dev`, como el ejemplo del profesor. P
 
 ## Postman
 
-Importa `API Alumnos.postman_collection.json` y cambia la variable de colección `baseUrl` por la URL base del despliegue, sin `/alumnos/...` al final. Las cinco peticiones envían **Body → raw → JSON** y `Content-Type: application/json`. Ejecuta Crear, Listar, Buscar, Modificar y Eliminar en ese orden. Si repites Crear con el mismo ID, obtendrás `409`; cambia `alumno_id` o elimina el registro de prueba.
+Importa `API Alumnos.postman_collection.json`. La variable `baseUrl` ya contiene la URL del despliegue `dev`: `https://zv2cnq3ai5.execute-api.us-east-1.amazonaws.com/dev`. Si vuelves a desplegar y cambia la URL, actualiza esa variable, sin `/alumnos/...` al final. Las cinco peticiones envían **Body → raw → JSON** y `Content-Type: application/json`. Ejecútalas en orden con el Collection Runner: Crear, Listar, Buscar, Modificar y Eliminar. Crear genera un `alumno_id` de prueba único (`TEST-...`), las peticiones siguientes reutilizan ese ID y Eliminar limpia el registro. Cada petición incluye pruebas de respuesta.
 
 | Ruta POST | Body requerido | Resultado |
 | --- | --- | --- |
