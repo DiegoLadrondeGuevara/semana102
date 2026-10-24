@@ -7,7 +7,7 @@ Cinco Lambdas Python 3.12 desplegadas en **un mismo API Gateway REST** mediante 
 1. En AWS Academy, inicia el laboratorio y configura las credenciales temporales de AWS en la MV. Comprueba el acceso con `aws sts get-caller-identity`.
 2. Confirma que existe la tabla DynamoDB `t_alumnos` en la región de despliegue, con clave de partición **`tenant_id` (String)** y clave de ordenación **`alumno_id` (String)**. El `serverless.yml` **no crea la tabla**. Si tu tabla tiene otro nombre, define `ALUMNOS_TABLE` antes de desplegar. Si sus claves son distintas, tendrás que ajustar el código.
 3. Confirma que la cuenta AWS `904208419583` tiene el rol IAM `LabRole` con permisos de ejecución para DynamoDB y CloudWatch Logs. Las credenciales temporales usadas por Serverless deben permitir crear Lambda y API Gateway. El YAML usa `arn:aws:iam::904208419583:role/LabRole` y la organización Serverless `diegoladrondeguevara`.
-4. Instala Serverless Framework en la MV si hace falta: `sudo npm install -g serverless`. Si tu instalación requiere login, ejecuta `serverless login`.
+4. Usa Serverless Framework **v3**: compruébalo con `serverless --version` o instálalo con `sudo npm install -g serverless@3`. Si tu instalación requiere login, ejecuta `serverless login`.
 
 ## Despliegue en Ubuntu/MV
 

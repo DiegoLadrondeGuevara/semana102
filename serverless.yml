@@ -1,5 +1,6 @@
 org: diegoladrondeguevara
 service: api-alumnos
+frameworkVersion: '3'
 
 package:
   patterns:
