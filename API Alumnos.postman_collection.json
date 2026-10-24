@@ -1,0 +1,68 @@
+{
+  "info": {
+    "name": "API Alumnos - Taller 2",
+    "description": "Importa la colección y cambia baseUrl por la URL base que devuelve serverless deploy (incluye /dev). Las rutas del ejemplo no requieren token.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": { "type": "noauth" },
+  "variable": [
+    { "key": "baseUrl", "value": "https://REEMPLAZAR.execute-api.us-east-1.amazonaws.com/dev" },
+    { "key": "tenant_id", "value": "UTEC" },
+    { "key": "alumno_id", "value": "2021077990" }
+  ],
+  "item": [
+    {
+      "name": "1. CrearAlumno",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tenant_id\": \"{{tenant_id}}\",\n  \"alumno_id\": \"{{alumno_id}}\",\n  \"alumno_datos\": {\n    \"nombre\": \"Juana del Arco\",\n    \"sexo\": \"F\",\n    \"fecha_nac\": \"2000-09-01\",\n    \"celular\": \"999736332\",\n    \"domicilio\": {\n      \"direcc\": \"Av. Javier Prado 158\",\n      \"distrito\": \"San Isidro\",\n      \"provincia\": \"Lima\",\n      \"departamento\": \"Lima\",\n      \"pais\": \"Perú\"\n    }\n  }\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/alumnos/crear"
+      }
+    },
+    {
+      "name": "2. ListarAlumnos",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"tenant_id\": \"{{tenant_id}}\"\n}", "options": { "raw": { "language": "json" } } },
+        "url": "{{baseUrl}}/alumnos/listar"
+      }
+    },
+    {
+      "name": "3. BuscarAlumno",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"tenant_id\": \"{{tenant_id}}\",\n  \"alumno_id\": \"{{alumno_id}}\"\n}", "options": { "raw": { "language": "json" } } },
+        "url": "{{baseUrl}}/alumnos/buscar"
+      }
+    },
+    {
+      "name": "4. ModificarAlumno",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tenant_id\": \"{{tenant_id}}\",\n  \"alumno_id\": \"{{alumno_id}}\",\n  \"alumno_datos\": {\n    \"nombre\": \"Juana del Arco\",\n    \"sexo\": \"F\",\n    \"fecha_nac\": \"2000-09-01\",\n    \"celular\": \"999000111\",\n    \"domicilio\": {\n      \"direcc\": \"Av. Javier Prado 158\",\n      \"distrito\": \"San Isidro\",\n      \"provincia\": \"Lima\",\n      \"departamento\": \"Lima\",\n      \"pais\": \"Perú\"\n    }\n  }\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/alumnos/modificar"
+      }
+    },
+    {
+      "name": "5. EliminarAlumno",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"tenant_id\": \"{{tenant_id}}\",\n  \"alumno_id\": \"{{alumno_id}}\"\n}", "options": { "raw": { "language": "json" } } },
+        "url": "{{baseUrl}}/alumnos/eliminar"
+      }
+    }
+  ]
+}
