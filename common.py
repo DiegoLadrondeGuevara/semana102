@@ -22,7 +22,7 @@ def request_body(event):
     body = event.get("body") if isinstance(event, dict) else None
     if isinstance(body, str):
         try:
-            body = json.loads(body)
+            body = json.loads(body, parse_float=Decimal)
         except json.JSONDecodeError as exc:
             raise ApiError(400, "El body debe ser JSON valido") from exc
     if not isinstance(body, dict):

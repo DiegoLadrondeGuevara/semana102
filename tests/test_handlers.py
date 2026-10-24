@@ -117,6 +117,10 @@ class HandlerTests(unittest.TestCase):
         result = handlers["ListarAlumnos"]({"body": "{broken"}, None)
         self.assertEqual(result["statusCode"], 400)
 
+    def test_numeric_json_data(self):
+        status, payload = call("CrearAlumno", {**self.key, "alumno_datos": {"promedio": 17.5}})
+        self.assertEqual((status, payload["alumno"]["alumno_datos"]["promedio"]), (201, 17.5))
+
 
 if __name__ == "__main__":
     unittest.main()
